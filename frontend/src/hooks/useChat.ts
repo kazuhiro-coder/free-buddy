@@ -13,7 +13,7 @@ export interface UseChatReturn {
   messages: ChatMessage[];
   isLoading: boolean;
   error: string | null;
-  sendMessage: (message: string, onToken?: (token: string) => void) => Promise<void>;
+  sendMessage: (message: string, onToken?: (token: string) => void, themeId?: number) => Promise<void>;
   clearMessages: () => void;
 }
 
@@ -36,7 +36,8 @@ export const useChat = (): UseChatReturn => {
 
   const sendMessage = useCallback(async (
     message: string, 
-    onToken?: (token: string) => void
+    onToken?: (token: string) => void,
+    themeId?: number
   ): Promise<void> => {
     if (!message.trim() || isLoading) return;
 
@@ -71,7 +72,11 @@ export const useChat = (): UseChatReturn => {
       const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user: 'user', message }),
+        body: JSON.stringify({ 
+          user: 'user', 
+          message,
+          theme: themeId || 1
+        }),
         signal: abortControllerRef.current.signal,
       });
 

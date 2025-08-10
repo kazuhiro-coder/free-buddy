@@ -54,7 +54,7 @@ export interface UseSpeechRecognitionReturn {
   transcript: string;
   isListening: boolean;
   isSupported: boolean;
-  startListening: () => void;
+  startListening: (onResult?: (finalTranscript: string) => void) => void;
   stopListening: () => void;
   hasError: boolean;
   errorMessage: string;

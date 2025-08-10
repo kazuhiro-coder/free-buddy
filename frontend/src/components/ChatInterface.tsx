@@ -6,7 +6,11 @@ import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
 import { useTtsSettings } from '@/hooks/useTtsSettings';
 
-export default function ChatInterface() {
+interface ChatInterfaceProps {
+  selectedTheme?: { id: number; title: string; description: string };
+}
+
+export default function ChatInterface({ selectedTheme }: ChatInterfaceProps) {
   const [textInput, setTextInput] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [isTtsActive, setIsTtsActive] = useState(false);
@@ -139,10 +143,10 @@ export default function ChatInterface() {
         if (textToSpeak) addToSpeechQueue(textToSpeak);
         sentenceBuffer = '';
       }
-    });
+    }, selectedTheme?.id);
 
     if (sentenceBuffer.trim()) addToSpeechQueue(sentenceBuffer.trim());
-  }, [addToSpeechQueue, isListening, isSpeaking, sendMessage, stopListening, stopSpeaking]);
+  }, [addToSpeechQueue, isListening, isSpeaking, sendMessage, stopListening, stopSpeaking, selectedTheme]);
 
   const handleMicClick = useCallback(() => {
     if (isListening) {
