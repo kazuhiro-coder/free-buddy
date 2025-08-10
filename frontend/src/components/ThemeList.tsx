@@ -153,8 +153,8 @@ export default function ThemeList({ onThemeSelect }: ThemeListProps) {
   return (
     <div className="theme-list-container">
       <div className="header">
-        <h1>🎨 会話テーマを選択してください</h1>
-        <p>AIとどんな会話をしたいですか？テーマを選んでチャットを開始しましょう。</p>
+        <h1>会話テーマを選択してください</h1>
+        <p>AIとどんな会話をしたいですか？テーマの作成または選択してチャットを開始しましょう。</p>
         <button 
           className="create-theme-button"
           onClick={() => setShowCreateForm(true)}
